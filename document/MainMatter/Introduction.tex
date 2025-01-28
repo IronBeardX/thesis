@@ -1,58 +1,94 @@
-\chapter*{Introducción}\label{chapter:introduction}
+\chapter*{Introducción}\label{chapter\:introduction}
+
 \addcontentsline{toc}{chapter}{Introducción}
 
-La pandemia de COVID-19 ha resaltado la importancia de contar con herramientas efectivas para la predicción y control de brotes epidémicos. Desde su aparición a finales de 2019, el virus SARS-CoV-2 ha provocado impactos sociales y económicos globales sin precedentes. En este contexto, los avances en inteligencia artificial y aprendizaje profundo han ofrecido nuevas oportunidades para abordar problemas complejos en la modelación epidemiológica. Este trabajo se centra en la aplicación de \textit{Graph Neural Networks} (GNNs) y \textit{Transfer Learning} para la predicción epidémica, con un enfoque particular en el caso de Cuba.
+
+La pandemia de COVID-19 ha resaltado la importancia de contar con herramientas efectivas para la predicción y control de brotes epidémicos. Desde su aparición a finales de 2019, el virus SARS-CoV-2 ha provocado impactos sociales y económicos globales sin precedentes. Según datos de \textit{Worldometer}, al final del seguimiento (13 de abril de 2024), se reportaron un total de 1,115,251 casos confirmados y 8,530 muertes asociadas al COVID-19. En este contexto, los avances en inteligencia artificial y aprendizaje profundo han ofrecido nuevas oportunidades para abordar problemas complejos en la modelación epidemiológica, aunque suelen requerir grandes cantidades de datos, lo que dificulta su aplicación en regiones con datos limitados o incompletos. Estos desafíos resaltan la necesidad de enfoques más avanzados, como las \textit{Graph Neural Networks} (GNNs). Este trabajo se centra en la aplicación de estas ultimas y \textit{Transfer Learning} para la predicción epidémica, con un enfoque particular en el caso de Cuba.
+
 
 \section*{Epidemias: Visión Histórica y Conceptual}
 
+
 Las epidemias han sido una constante amenaza para la humanidad a lo largo de la historia, afectando profundamente la salud pública, las economías y las estructuras sociales. Se definen como la aparición y propagación de una enfermedad en una población específica en un período de tiempo determinado, con una frecuencia superior a la esperada en condiciones normales. A lo largo de los siglos, diferentes epidemias han dejado una marca indeleble en las sociedades, desde la \textit{Peste Negra} en Europa hasta la \textit{Gripe Española} de 1918 y más recientemente, la pandemia de \textit{COVID-19}. Cada una de estas crisis ha evidenciado la necesidad de desarrollar métodos más efectivos para la predicción y control de brotes epidémicos, dado que la propagación de enfermedades infecciosas está influenciada por una compleja interacción de factores sociales, geográficos y temporales.
+
 
 En el caso de Cuba, el sistema de salud pública ha jugado un papel crucial en la mitigación de brotes epidémicos. Sin embargo, a pesar de los avances en medicina y tecnología, los desafíos derivados de la limitada disponibilidad de recursos y las barreras económicas han condicionado la efectividad de las estrategias de control. El país ha enfrentado brotes significativos de enfermedades infecciosas, entre los que destacan el \textit{dengue}, la \textit{dengue hemorrágico}, \textit{HIV} y \textit{H1N1}, los cuales se han convertido en hitos de la historia epidemiológica cubana. En cada uno de estos casos, las respuestas de salud pública han sido decisivas para minimizar el impacto social y sanitario. No obstante, la variabilidad en la incidencia de estas enfermedades, junto con los cambios en los patrones de movilidad de la población y la influencia de factores socioeconómicos, ha resaltado la necesidad de modelos predictivos más sofisticados.
 
+
 La dinámica de propagación de las enfermedades infecciosas es inherentemente compleja. Factores como los períodos de incubación, los cuales varían significativamente entre diferentes enfermedades, y las interacciones sociales dentro de una población, son determinantes claves en la evolución de un brote epidémico. Los períodos de gestación, que definen el tiempo que transcurre desde la exposición al patógeno hasta la manifestación de los primeros síntomas, son fundamentales para la predicción de la propagación de una epidemia. Enfermedades como la \textit{COVID-19} tienen una fase de incubación de entre 2 y 14 días, mientras que otras, como el \textit{dengue}, pueden presentar períodos de incubación de 3 a 14 días. Esta variabilidad en los períodos de gestación plantea desafíos significativos para la modelación epidemiológica, ya que deben tenerse en cuenta tanto los factores temporales como los sociales en la propagación de la enfermedad.
+
 
 El \textit{dengue}, particularmente el \textit{dengue hemorrágico}, ha sido una de las enfermedades más impactantes en Cuba, especialmente en las décadas de los 80 y 90, cuando el país enfrentó varios brotes graves. La capacidad de respuesta del sistema de salud cubano, que incluyó medidas de control como la fumigación masiva y la educación comunitaria, logró contener los brotes, pero los cambios en las condiciones ambientales y los patrones de movilidad han incrementado la complejidad de la transmisión en años posteriores. Investigaciones como las de \textcite{valdes2002impacto} y \textcite{kouri1986dengue} han demostrado que la modelación precisa de la propagación del dengue debe tener en cuenta factores de movilidad y condiciones socioeconómicas, elementos que a menudo son difíciles de integrar en modelos tradicionales.
 
+
 La \textit{HIV} en Cuba, aunque menos prevalente que en otras regiones, ha tenido un impacto significativo en la salud pública debido a la alta tasa de diagnóstico y tratamiento. Los brotes de \textit{HIV} en los años 80 y 90 provocaron un aumento en los esfuerzos de prevención y educación sanitaria, con un enfoque en el diagnóstico temprano y el tratamiento. En este contexto, la modelación de la propagación de enfermedades como \textit{HIV} ha sido clave para la implementación de políticas de prevención efectivas, y los modelos predictivos han jugado un papel crucial en la planificación de recursos y en la asignación de esfuerzos preventivos.
+
 
 En cuanto al \textit{H1N1}, la epidemia que se presentó en 2009 también dejó importantes lecciones sobre la respuesta de salud pública en Cuba. Aunque el país implementó medidas rápidas para contener el virus, como el aislamiento de casos sospechosos y la distribución de antivirales, la propagación de la enfermedad se vio influenciada por la rápida movilidad de las personas, un factor exacerbado por el turismo y la globalización. La capacidad para predecir y contener brotes de \textit{H1N1} se vio limitada por la falta de modelos de predicción dinámicos que integraran los patrones de movilidad y las características socioeconómicas de las diferentes regiones del país.
 
+
 La creciente complejidad de la propagación de enfermedades infecciosas, junto con la limitada disponibilidad de datos precisos y actualizados, subraya la necesidad de utilizar enfoques más sofisticados en la predicción epidémica. El análisis de factores espaciales, temporales y sociales, como los realizados en estudios sobre el \textit{COVID-19} en Cuba \textcite{Matamoros2020EntradaDV, mas2020covid}, resalta la importancia de incorporar herramientas avanzadas como las \textit{Graph Neural Networks} (GNNs), que pueden integrar redes espaciales y temporales, así como datos heterogéneos de diversas fuentes, para modelar con mayor precisión la propagación de enfermedades en contextos complejos.
+
 
 El análisis de estas epidemias históricas y su impacto en Cuba establece un contexto crucial para comprender los desafíos y la necesidad de enfoques más avanzados en la predicción de epidemias. Las experiencias pasadas proporcionan un marco de referencia para la identificación de patrones recurrentes y la comprensión de la interacción entre factores geográficos, sociales y económicos, que son esenciales para la predicción eficaz de la propagación de enfermedades infecciosas en el futuro.
 
+
 \section*{Antecedentes del Problema Científico}
+
 La modelación epidemiológica tradicional, basada en la asumción de que un sistema complejo puede comprenderse examinando el funcionamiento de sus partes y la manera en que se juntan, como los modelos SEIR \parencite{Burke2024OriginsSEIR}, tiene limitaciones significativas cuando se aplican a regiones con alta heterogeneidad espacial y temporal en los patrones de transmisión. La integración de datos espaciales y temporales mediante redes neuronales profundas, particularmente GNNs, ha demostrado ser una herramienta poderosa para abordar estas limitaciones. Además, la técnica de \textit{Transfer Learning} permite aprovechar conocimientos adquiridos en dominios relacionados para mejorar el desempeño en escenarios con datos limitados.
+
 
 En el contexto cubano, la historia epidemiológica es rica y compleja. Desde la introducción de enfermedades infecciosas durante la colonización hasta las campañas exitosas de vacunación contra la poliomielitis en el siglo XX, Cuba ha enfrentado numerosos retos sanitarios. Las epidemias de dengue, fiebre amarilla y poliomielitis han marcado hitos en la salud pública del país. La pandemia de COVID-19 destacó la combinación de un sistema de salud con recursos limitados y el compromiso estatal con la salud pública, generando un modelo de respuesta basado en aislamiento estricto, movilización comunitaria y el desarrollo de vacunas nacionales como Abdala y Soberana. Estas estrategias, aunque efectivas en muchos aspectos, subrayan la necesidad de herramientas modernas que puedan abordar la complejidad y la dinámica cambiante de las epidemias.
 
+
 Además, la predicción precisa de la propagación del COVID-19 en Cuba enfrenta retos significativos. Entre ellos, destaca la escasez de información detallada y consistente sobre movilidad poblacional, redes de interacción social y registros sanitarios, lo cual dificulta el entrenamiento de modelos robustos y generalizables. También se observa una heterogeneidad regional marcada, que incluye diferencias en densidad poblacional, comportamiento social, acceso a recursos sanitarios y niveles socioeconómicos. Además, esta complejidad requiere modelos que puedan capturar y representar estas variaciones de manera precisa \parencite{Rodriguez2022DataCentric, Panagopoulos_Nikolentzos_Vazirgiannis_2021}.
 
+
 \section*{Presentación del Problema}
+
 El reto central de esta investigación radica en desarrollar un modelo capaz de predecir la dinámica de la transmisión de enfermedades infecciosas en Cuba, aprovechando datos disponibles como movimientos poblacionales y condiciones socioeconómicas. Este enfoque combina las capacidades de representación de las GNNs con la flexibilidad del \textit{Transfer Learning} para ajustar el modelo a las particularidades del contexto cubano.
+
 
 La predicción precisa de la propagación del COVID-19 en Cuba enfrenta retos significativos. Entre ellos, destaca la escasez de información detallada y consistente sobre movilidad poblacional, redes de interacción social y registros sanitarios, lo cual dificulta el entrenamiento de modelos robustos y generalizables. Además, existen notables diferencias sociales y demográficas entre regiones, incluyendo densidad poblacional, comportamiento social, acceso a recursos sanitarios y niveles socioeconómicos. Estos factores heterogéneos influyen de manera desigual en la dinámica de transmisión del virus y requieren ser modelados cuidadosamente para evitar generalizaciones erróneas.
 
+
 \section*{Relevancia, Novedad e Importancia Práctica-Teórica}
+
 Este trabajo aporta a la literatura existente al aplicar GNNs en un contexto geográfico subexplorado, combinando enfoques novedosos como el uso de \textit{GNN's espacio-temporales} y transferencia de conocimiento \parencite{Nguyen2023NZSTGNN, Zheng2024HeatGNN}. Las aplicaciones prácticas incluyen mejoras en la planificación de recursos de salud y la capacidad de respuesta ante emergencias sanitarias.
+
 
 Además, esta investigación tiene el potencial de desarrollar herramientas predictivas adaptables que mejoren la gestión de futuras epidemias. La integración de GNNs con transferencia de aprendizaje representa una contribución novedosa al campo, al combinar enfoques teóricos avanzados con aplicaciones prácticas. Este trabajo también podría tener implicaciones más amplias en el análisis de redes complejas y en la formulación de políticas públicas para fortalecer la resiliencia sanitaria. Además, se busca contribuir al establecimiento de un marco metodológico replicable que pueda ser utilizado en otras naciones insulares con características similares.
 
+
 \section*{Objetivos de la Investigación}
+
 \subsection*{Pregunta científica}
+
 ¿ Es posible disponer de un modelo basado en \textit{Graph Neural Networks} y textit{Transfer Learning} para la predicción de brotes epidémicos, integrado con datos espacio-temporales?
 
+
 \subsection*{Estructura de la tesis}
+
 Este trabajo se organiza en seis capítulos, incluyendo la introducción y la conclusión. El Capítulo 2 presenta el marco teórico y conceptual, abordando los fundamentos de la modelación epidemiológica y las técnicas de aprendizaje profundo aplicadas a la predicción de brotes epidémicos. El Capítulo 3 revisa la literatura existente sobre GNNs y Transfer Learning en el contexto de la epidemiología, destacando los avances recientes y las aplicaciones prácticas. El Capítulo 4 describe la metodología propuesta, incluyendo la selección de datos, la arquitectura del modelo y las métricas de evaluación. El Capítulo 5 presenta los resultados de la implementación del modelo en un conjunto de datos de prueba y discute las implicaciones prácticas de los hallazgos. Finalmente, el Capítulo 6 resume las conclusiones y recomendaciones derivadas de la investigación, así como las posibles áreas de desarrollo futuro.
 
+
 \subsection*{Objetivo General}
+
 Diseñar e implementar un modelo basado en \textit{Graph Neural Networks} y \textit{Transfer Learning} para la predicción de brotes epidémicos en Cuba, integrando datos espaciales y temporales.
 
+
 \subsection*{Objetivos Específicos}
+
 \begin{itemize}
-    \item Analizar las técnicas actuales de modelación epidémica basadas en GNNs y su aplicabilidad al contexto cubano.
-    \item Implementar una arquitectura \textit{espacio-temporal} adaptada a datos locales, considerando movilidad y características socioeconómicas.
-    \item Evaluar el impacto del \textit{Transfer Learning} en la mejora de la predicción cuando se usan datos limitados.
-    \item Validar el modelo propuesto utilizando datos históricos de epidemias en Cuba.
-    \item Identificar potenciales áreas de aplicación del modelo para mejorar la preparación ante futuras emergencias sanitarias.
+
+\item Analizar las técnicas actuales de modelación epidémica basadas en GNNs y su aplicabilidad al contexto cubano.
+
+\item Implementar una arquitectura \textit{espacio-temporal} adaptada a datos locales, considerando movilidad y características socioeconómicas.
+
+\item Evaluar el impacto del \textit{Transfer Learning} en la mejora de la predicción cuando se usan datos limitados.
+
+\item Validar el modelo propuesto utilizando datos históricos de epidemias en Cuba.
+
+\item Identificar potenciales áreas de aplicación del modelo para mejorar la preparación ante futuras emergencias sanitarias.
+
 \end{itemize}

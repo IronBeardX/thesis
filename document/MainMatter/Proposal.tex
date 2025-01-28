@@ -2,46 +2,46 @@
 
 En el contexto de la pandemia de COVID-19, predecir con precisión la dinámica de transmisión de enfermedades infecciosas se ha convertido en un desafío crítico para la gestión de la salud pública. Las estrategias tradicionales de modelización, aunque útiles en sus contextos originales, presentan limitaciones significativas al enfrentarse a la complejidad y heterogeneidad de escenarios modernos, especialmente en países con datos limitados y alta variabilidad geográfica y socioeconómica. Este capítulo presenta la propuesta metodológica de esta investigación, basada en las capacidades avanzadas de las redes neuronales de grafos espacio-temporales (\textit{Spatio-Temporal Graph Neural Networks}, STGNNs), diseñadas para superar las restricciones de los enfoques convencionales y adaptarse a la complejidad del contexto cubano.
 
-La propuesta toma como base los avances recientes en el campo de las STGNNs, tal como se describe en trabajos clave como \textit{Attention-based Temporal Multiresolution Graph Neural Networks (ATMGNN)}, \textit{Temporal Multiresolution Graph Neural Networks (TMGNN)} y \textit{Transfer Graph Neural Networks (T-GNN)}. Estas metodologías han demostrado ser altamente efectivas para integrar datos espacio-temporales, capturar patrones de propagación epidémica y mejorar la precisión predictiva en escenarios de alta incertidumbre. Inspirados por estas contribuciones, proponemos un modelo adaptado que combina la representación jerárquica multirresolución, la integración de datos socioeconómicos y la movilidad, y un enfoque basado en aprendizaje transferido para maximizar la utilidad de datos limitados.
+% La propuesta toma como base los avances recientes en el campo de las STGNNs, tal como se describe en trabajos clave como \textit{Attention-based Temporal Multiresolution Graph Neural Networks (ATMGNN)}, \textit{Temporal Multiresolution Graph Neural Networks (TMGNN)} y \textit{Transfer Graph Neural Networks (T-GNN)}. Estas metodologías han demostrado ser altamente efectivas para integrar datos espacio-temporales, capturar patrones de propagación epidémica y mejorar la precisión predictiva en escenarios de alta incertidumbre. Inspirados por estas contribuciones, proponemos un modelo adaptado que combina la representación jerárquica multirresolución, la integración de datos socioeconómicos y la movilidad, y un enfoque basado en aprendizaje transferido para maximizar la utilidad de datos limitados.
 
-El objetivo principal de esta propuesta es desarrollar un modelo robusto y escalable que permita predecir la propagación del COVID-19 en Cuba, aprovechando tanto los datos disponibles como las estructuras espaciales y temporales subyacentes. A continuación, se detallan los fundamentos teóricos y metodológicos que sustentan esta propuesta, destacando las innovaciones clave de los modelos seleccionados y las adaptaciones necesarias para su aplicación en el contexto cubano.
+% El objetivo principal de esta propuesta es desarrollar un modelo robusto y escalable que permita predecir la propagación del COVID-19 en Cuba, aprovechando tanto los datos disponibles como las estructuras espaciales y temporales subyacentes. A continuación, se detallan los fundamentos teóricos y metodológicos que sustentan esta propuesta, destacando las innovaciones clave de los modelos seleccionados y las adaptaciones necesarias para su aplicación en el contexto cubano.
 
-\subsection{Modelo ATMGNN: Attention-Based Temporal Multiresolution Graph Neural Networks}
+% \subsection{Modelo ATMGNN: Attention-Based Temporal Multiresolution Graph Neural Networks}
 
-El modelo ATMGNN (\textit{Attention-based Temporal Multiresolution Graph Neural Networks}), introducido en el estudio sobre Nueva Zelanda, combina información espacial y temporal para realizar predicciones robustas de la propagación del COVID-19. Este modelo utiliza un enfoque de aprendizaje multirresolución para representar la dinámica de la pandemia a múltiples escalas geográficas y temporales. Los componentes clave del modelo son los siguientes \cite{174}:
+% El modelo ATMGNN (\textit{Attention-based Temporal Multiresolution Graph Neural Networks}), introducido en el estudio sobre Nueva Zelanda, combina información espacial y temporal para realizar predicciones robustas de la propagación del COVID-19. Este modelo utiliza un enfoque de aprendizaje multirresolución para representar la dinámica de la pandemia a múltiples escalas geográficas y temporales. Los componentes clave del modelo son los siguientes \cite{174}:
 
-\begin{itemize}
-    \item \textbf{Estructura Multirresolución:} Se emplea un algoritmo de agrupamiento de datos (\textit{learning to cluster}) que permite agrupar regiones geográficas en diferentes niveles de resolución, desde nodos individuales hasta supernodos que representan ciudades o países.
-    \item \textbf{Mecanismo de Atención:} Un mecanismo de atención dinámico selecciona la resolución más relevante para cada etapa de la pandemia, adaptándose a las señales locales o globales según sea necesario.
-    \item \textbf{Incorporación de Datos Temporales:} La arquitectura incluye un módulo temporal que integra información histórica para capturar las dependencias a largo plazo en la propagación del virus.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Estructura Multirresolución:} Se emplea un algoritmo de agrupamiento de datos (\textit{learning to cluster}) que permite agrupar regiones geográficas en diferentes niveles de resolución, desde nodos individuales hasta supernodos que representan ciudades o países.
+%     \item \textbf{Mecanismo de Atención:} Un mecanismo de atención dinámico selecciona la resolución más relevante para cada etapa de la pandemia, adaptándose a las señales locales o globales según sea necesario.
+%     \item \textbf{Incorporación de Datos Temporales:} La arquitectura incluye un módulo temporal que integra información histórica para capturar las dependencias a largo plazo en la propagación del virus.
+% \end{itemize}
 
-Este enfoque permitió al modelo superar a múltiples métodos de referencia, incluyendo ARIMA, modelos basados en LSTM, y otros enfoques de aprendizaje profundo, tanto en términos de precisión como de robustez frente a datos ruidosos o incompletos.
+% Este enfoque permitió al modelo superar a múltiples métodos de referencia, incluyendo ARIMA, modelos basados en LSTM, y otros enfoques de aprendizaje profundo, tanto en términos de precisión como de robustez frente a datos ruidosos o incompletos.
 
-\subsection{Modelo TMGNN: Temporal Multiresolution Graph Neural Networks}
+% \subsection{Modelo TMGNN: Temporal Multiresolution Graph Neural Networks}
 
-El modelo TMGNN (\textit{Temporal Multiresolution Graph Neural Networks}) extiende las capacidades de las GNNs tradicionales mediante la introducción de representaciones multiescala para capturar tanto la información local como global en gráficos dinámicos \cite{172}. Los aspectos innovadores de esta arquitectura incluyen:
+% El modelo TMGNN (\textit{Temporal Multiresolution Graph Neural Networks}) extiende las capacidades de las GNNs tradicionales mediante la introducción de representaciones multiescala para capturar tanto la información local como global en gráficos dinámicos \cite{172}. Los aspectos innovadores de esta arquitectura incluyen:
 
-\begin{itemize}
-    \item \textbf{Construcción Jerárquica del Grafo:} Se genera una jerarquía de gráficos mediante un módulo de agrupamiento que adapta dinámicamente la granularidad de las regiones representadas en el grafo.
-    \item \textbf{Selección Basada en Atención:} Un módulo de atención permite seleccionar las resoluciones más relevantes para optimizar las predicciones a diferentes escalas geográficas.
-    \item \textbf{Integración Temporal:} Se incorpora un modelo basado en series temporales para aprender las transiciones dinámicas entre nodos del grafo.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Construcción Jerárquica del Grafo:} Se genera una jerarquía de gráficos mediante un módulo de agrupamiento que adapta dinámicamente la granularidad de las regiones representadas en el grafo.
+%     \item \textbf{Selección Basada en Atención:} Un módulo de atención permite seleccionar las resoluciones más relevantes para optimizar las predicciones a diferentes escalas geográficas.
+%     \item \textbf{Integración Temporal:} Se incorpora un modelo basado en series temporales para aprender las transiciones dinámicas entre nodos del grafo.
+% \end{itemize}
 
-Los resultados experimentales muestran que este modelo es altamente eficaz para predecir tanto los picos como las tendencias a largo plazo de epidemias como el COVID-19 y la varicela en Europa.
+% Los resultados experimentales muestran que este modelo es altamente eficaz para predecir tanto los picos como las tendencias a largo plazo de epidemias como el COVID-19 y la varicela en Europa.
 
-\subsection{Modelo T-GNN: Transfer Graph Neural Networks}
+% \subsection{Modelo T-GNN: Transfer Graph Neural Networks}
 
-El modelo T-GNN (\textit{Transfer Graph Neural Networks}) introduce técnicas de aprendizaje transferido para mejorar la precisión de las predicciones en escenarios con datos limitados \cite{173}. Este enfoque se basa en los siguientes principios:
+% El modelo T-GNN (\textit{Transfer Graph Neural Networks}) introduce técnicas de aprendizaje transferido para mejorar la precisión de las predicciones en escenarios con datos limitados \cite{173}. Este enfoque se basa en los siguientes principios:
 
-\begin{itemize}
-    \item \textbf{Aprendizaje Transferido:} Utiliza el método MAML (\textit{Model-Agnostic Meta-Learning}) para transferir conocimiento de países con datos más completos a países con brotes incipientes.
-    \item \textbf{Incorporación de Movilidad:} Los datos de movilidad entre regiones se representan mediante un grafo, donde los nodos corresponden a regiones y los bordes representan los flujos de población.
-    \item \textbf{Codificación de Patrones de Difusión:} El modelo aprende las dinámicas subyacentes de la transmisión epidémica al combinar datos espaciales y temporales.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Aprendizaje Transferido:} Utiliza el método MAML (\textit{Model-Agnostic Meta-Learning}) para transferir conocimiento de países con datos más completos a países con brotes incipientes.
+%     \item \textbf{Incorporación de Movilidad:} Los datos de movilidad entre regiones se representan mediante un grafo, donde los nodos corresponden a regiones y los bordes representan los flujos de población.
+%     \item \textbf{Codificación de Patrones de Difusión:} El modelo aprende las dinámicas subyacentes de la transmisión epidémica al combinar datos espaciales y temporales.
+% \end{itemize}
 
-Este enfoque demostró ser especialmente útil para predecir la evolución del COVID-19 en regiones de Europa con datos limitados, destacando el potencial del aprendizaje transferido para mejorar la precisión en escenarios de brotes secundarios.
+% Este enfoque demostró ser especialmente útil para predecir la evolución del COVID-19 en regiones de Europa con datos limitados, destacando el potencial del aprendizaje transferido para mejorar la precisión en escenarios de brotes secundarios.
 
-\subsection{Comparación y Resultados Clave}
+% \subsection{Comparación y Resultados Clave}
 
-En conjunto, los tres modelos destacan por su capacidad para abordar las limitaciones de los métodos tradicionales y otros enfoques de aprendizaje profundo. A través de la integración de datos espacio-temporales, mecanismos de atención, y estrategias de aprendizaje transferido, estos modelos ofrecen herramientas robustas y adaptativas para la predicción epidémica. Los resultados experimentales indican mejoras significativas en métricas de precisión como el MAE (Error Absoluto Medio) y el RMSE (Raíz del Error Cuadrático Medio), consolidando su relevancia en el campo de la modelización epidemiológica.
+% En conjunto, los tres modelos destacan por su capacidad para abordar las limitaciones de los métodos tradicionales y otros enfoques de aprendizaje profundo. A través de la integración de datos espacio-temporales, mecanismos de atención, y estrategias de aprendizaje transferido, estos modelos ofrecen herramientas robustas y adaptativas para la predicción epidémica. Los resultados experimentales indican mejoras significativas en métricas de precisión como el MAE (Error Absoluto Medio) y el RMSE (Raíz del Error Cuadrático Medio), consolidando su relevancia en el campo de la modelización epidemiológica.
